@@ -1,2 +1,5 @@
 # Camel
-Apache Camel Examples
+Apache Camel Examples For learning! 
+
+Dimit Chadha
+www.javapathshala.com
