@@ -8,11 +8,18 @@
     <name>Hello-World</name>
 
     <dependencies>
+        <!-- Basic Camel-->
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-core</artifactId>
             <version>2.22.1</version>
         </dependency>
 
+        <!-- Using Spring with Camel DSL-->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-spring</artifactId>
+            <version>2.22.1</version>
+        </dependency>
     </dependencies>
 </project>
