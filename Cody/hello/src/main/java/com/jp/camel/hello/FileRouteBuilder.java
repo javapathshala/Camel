@@ -20,13 +20,13 @@ import org.apache.camel.builder.RouteBuilder;
  * @since 1.0
  * @version 1.0
  */
-public class SimpleRouteBuilder extends RouteBuilder
+public class FileRouteBuilder extends RouteBuilder
 {
 
     @Override
     public void configure() throws Exception
     {
-        from("file:C:\\sourceLocation?noop=true").process(new SimpleProcessor()).to("file:C:\\destLocation");
+        from("file:C:\\sourceLocation?noop=true").process(new FileProcessor()).to("file:C:\\destLocation");
     }
 
 }

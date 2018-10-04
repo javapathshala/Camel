@@ -25,27 +25,32 @@ import org.apache.camel.impl.DefaultCamelContext;
 public class HelloWorld
 {
 
+    private static final long DURATION_MILIS = 100;
+    private static final String SOURCE_FOLDER = "c:\\sourceLocation";
+    private static final String DESTINATION_FOLDER = "c:\\destLocation";
+
     public static void main(String[] args) throws Exception
     {
         doFileSetup();
 
         CamelContext context = new DefaultCamelContext();
-        context.addRoutes(new SimpleRouteBuilder());
+        context.addRoutes(new FileRouteBuilder());
         context.start();
-        Thread.sleep(3000);
+        System.out.println("File moved !");
+        Thread.sleep(DURATION_MILIS);
         context.stop();
 
     }
 
     public static void doFileSetup() throws Exception
     {
-        File f = new File("c:\\sourceLocation");
+        File f = new File(SOURCE_FOLDER);
         f.delete();
         f.mkdir();
         File fs1 = new File("c:\\sourceLocation\\text1.txt");
         fs1.delete();
         fs1.createNewFile();
-        File f1 = new File("c:\\destLocation");
+        File f1 = new File(DESTINATION_FOLDER);
         f1.delete();
         f1.mkdir();
     }
