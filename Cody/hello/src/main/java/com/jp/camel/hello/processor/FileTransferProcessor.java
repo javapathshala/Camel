@@ -8,8 +8,10 @@
  * JavaPathshala.com
  *
  */
-package com.jp.camel.hello;
+package com.jp.camel.hello.processor;
 
+import com.jp.camel.hello.exception.FileCamelException;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.apache.camel.Exchange;
@@ -23,13 +25,18 @@ import org.apache.camel.Processor;
  * @since 1.0
  * @version 1.0
  */
-public class FileProcessor implements Processor
+public class FileTransferProcessor implements Processor
 {
 
+    @Override
     public void process(Exchange exchange) throws FileCamelException
     {
         try
         {
+            String filetext = exchange.getIn().getBody(String.class);
+//                LOG.info("Processing text: " + text);
+            File file = exchange.getIn().getBody(File.class);
+
             String originalFileName = exchange.getIn().getHeader(Exchange.FILE_NAME, String.class);
             Date date = new Date();
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");

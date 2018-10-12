@@ -1,13 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:camel="http://camel.apache.org/schema/spring"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-		http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://camel.apache.org/schema/spring
-		http://camel.apache.org/schema/spring/camel-spring.xsd">
+                           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                           http://camel.apache.org/schema/spring
+                           http://camel.apache.org/schema/spring/camel-spring.xsd">
 
-    <bean id="fileRouter" class="com.jp.camel.hello.FileRouteBuilder" />
+    <!--<bean id="fileTransferType" class="com.jp.camel.hello.route.FileTransferType" init-method="fromLetter"/>-->
 
-    <camelContext xmlns="http://camel.apache.org/schema/spring">
-        <routeBuilder ref="fileRouter" />
-    </camelContext>
+    <bean id="fileTransferRouteBuilder" class="com.jp.camel.hello.route.FileTransferRouteBuilder">
+       <constructor-arg>
+        <value type="com.jp.camel.hello.route.FileTransferType">MOVE</value>
+    </constructor-arg>
+    </bean>
+
+   <camel:camelContext id="camel">
+        <camel:routeBuilder ref="fileTransferRouteBuilder"/>
+    </camel:camelContext>
 </beans>
+
+<!-- Camel bootstrao -camel-ride-bootstrap.xml -->
+<!--<context:component-scan base-package="org.burgers.camel.ride.app"/>
+    <context:property-placeholder location="classpath*:camel-ride-app-env.properties"/>
+
+<import resource="classpath:contexts/camel-route-context.xml"/>
+<import resource="classpath:contexts/logging-context.xml"/>-->
+
+<!--camel routr context xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+    <camel:camelContext id="camel">
+        <camel:routeBuilder ref="fileMover"/>
+    </camel:camelContext>
+
+</beans>
+-->
+
+<!--?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetClass" value="org.springframework.util.Log4jConfigurer"/>
+        <property name="targetMethod" value="initLogging"/>
+        <property name="arguments">
+            <list>
+                <value>classpath:app-log4j.xml</value>
+            </list>
+        </property>
+    </bean>
+
+</beans-->
+
+<!--?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd" >
+<log4j:configuration>
+    <appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ABSOLUTE} %5p %c{1}:%L - %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="org.burgers" additivity="false">
+        <level value="info"/>
+        <appender-ref ref="stdout"/>
+    </logger>
+
+    <root>
+        <priority value="error"/>
+        <appender-ref ref="stdout"/>
+    </root>
+</log4j:configuration-->

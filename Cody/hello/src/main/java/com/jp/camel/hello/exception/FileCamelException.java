@@ -8,7 +8,7 @@
  * JavaPathshala.com
  *
  */
-package com.jp.camel.hello;
+package com.jp.camel.hello.exception;
 
 /**
  *
