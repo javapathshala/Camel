@@ -26,13 +26,26 @@ import org.apache.camel.Processor;
 public class FileProcessor implements Processor
 {
 
-    public void process(Exchange exchange) throws Exception
+    public void process(Exchange exchange) throws FileCamelException
     {
-        String originalFileName = exchange.getIn().getHeader(Exchange.FILE_NAME, String.class);
-        Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
-        String changedFileName = dateFormat.format(date) + "-" + originalFileName;
-        exchange.getIn().setHeader(Exchange.FILE_NAME, changedFileName);
+        try
+        {
+            String originalFileName = exchange.getIn().getHeader(Exchange.FILE_NAME, String.class);
+            Date date = new Date();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+//            int i = 3 / 0;
+            String changedFileName = dateFormat.format(date) + "-" + originalFileName;
+            exchange.getIn().setHeader(Exchange.FILE_NAME, changedFileName);
+            System.out.println("File Moved");
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            exchange.setException(e);
+//            exchange.getIn().setHeader(Exchange.EXCEPTION_CAUGHT, new FileCamelException("Unable to move file"));
+            throw new FileCamelException("Unable to move file.................................");
+        }
+
     }
 
 }

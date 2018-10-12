@@ -25,18 +25,18 @@ import org.apache.camel.impl.DefaultCamelContext;
 public class HelloWorld
 {
 
-    private static final long DURATION_MILIS = 100;
+    private static final long DURATION_MILIS = 10000;
     private static final String SOURCE_FOLDER = "c:\\sourceLocation";
     private static final String DESTINATION_FOLDER = "c:\\destLocation";
 
     public static void main(String[] args) throws Exception
     {
-        doFileSetup();
+        //doFileSetup();
 
         CamelContext context = new DefaultCamelContext();
         context.addRoutes(new FileRouteBuilder());
         context.start();
-        System.out.println("File moved !");
+
         Thread.sleep(DURATION_MILIS);
         context.stop();
 

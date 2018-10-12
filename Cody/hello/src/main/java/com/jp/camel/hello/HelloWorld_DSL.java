@@ -10,7 +10,6 @@
  */
 package com.jp.camel.hello;
 
-import static com.jp.camel.hello.HelloWorld.doFileSetup;
 import java.io.File;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

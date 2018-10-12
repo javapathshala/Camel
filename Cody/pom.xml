@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.jp.camel</groupId>
+    <artifactId>jp-camel-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>JP Camel Integration Project</name>
+    <description>JP Camel Parent Project</description>
+    <modules>
+        <module>hello</module>
+    </modules>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <version.org.apache.camel>2.22.1</version.org.apache.camel>
+    </properties>
+
+    <dependencies>
+        <!-- Basic Camel-->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-core</artifactId>
+            <version>${version.org.apache.camel}</version>
+        </dependency>
+        <!-- Using Spring with Camel DSL-->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-spring</artifactId>
+            <version>${version.org.apache.camel}</version>
+        </dependency>
+    </dependencies>
+</project>
