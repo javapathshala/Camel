@@ -10,6 +10,7 @@
  */
 package com.jp.camel.hello.route;
 
+import com.jp.camel.hello.exception.FileCamelException;
 import com.jp.camel.hello.processor.FileTransferProcessor;
 import java.util.Date;
 import org.apache.camel.Exchange;
@@ -85,27 +86,26 @@ public class FileTransferRouteBuilder extends RouteBuilder
         {
             FileTransferProcessor fp = new FileTransferProcessor();
             from(fromEndPoint)
-                    .id("file-transfer111111111111111")
+                    .id("file-transfer")
+                    .log(LoggingLevel.INFO, "Moving file --> " + fromEndPoint)
+                    .to("log:com.jp?level=DEBUG")
+                    .log("Processing ${id}")
                     .doTry()
                     .process(fp)
                     .to(toEndPoint)
-                    .doCatch(Exception.class).process(new Processor()
+                    .doCatch(FileCamelException.class).process(new Processor()
             {
                 @Override
                 public void process(Exchange exchange) throws Exception
                 {
-                    System.out.println(((Exception) exchange.getProperty(Exchange.EXCEPTION_CAUGHT)).getMessage());
+                    log.error(((Exception) exchange.getProperty(Exchange.EXCEPTION_CAUGHT)).getMessage());
                 }
             });
-            log.info("No Source file found!");
-
         }
         catch (Exception e)
         {
             log.error(e.getMessage());
-            System.out.println("OK");
         }
-
     }
 
     private Long dateToTime(Exchange e)
